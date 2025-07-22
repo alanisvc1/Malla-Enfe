@@ -99,7 +99,7 @@ div.addEventListener("click", () => {
     div.classList.remove("aprobado");
     ramosAprobados = ramosAprobados.filter(c => c !== ramo.codigo);
     guardarProgreso(ramosAprobados);
-    reiniciarActivos(); // Esto recalcula qué ramos pueden estar activos
+    reiniciarActivos(); 
   } else {
     div.classList.add("aprobado");
     ramosAprobados.push(ramo.codigo);
@@ -119,13 +119,10 @@ div.addEventListener("click", () => {
       div.classList.add("activo");
     }
   });
-}
-;
-  }
 });
 
   return div;
-}
+},
 
 function crearBloqueSemestre(titulo, ramos) {
   const bloque = document.createElement("section");
@@ -136,17 +133,17 @@ function crearBloqueSemestre(titulo, ramos) {
 
   ramos.forEach(ramo => bloque.appendChild(crearRamo(ramo)));
   malla.appendChild(bloque);
-}
+},
 
 function actualizarEstado() {
   document.querySelectorAll(".ramo").forEach(div => {
     const codigo = div.dataset.codigo;
     const ramo = Object.values(ramosPorSemestre).flat().find(r => r.codigo === codigo);
 
-    // Determinar si se puede activar
+
     const puedeActivarse = ramo.requisitos.length === 0 || ramo.requisitos.every(c => ramosAprobados.includes(c));
 
-    // Actualizar clases
+
     div.classList.toggle("activo", puedeActivarse);
     div.classList.toggle("aprobado", ramosAprobados.includes(codigo));
   });
